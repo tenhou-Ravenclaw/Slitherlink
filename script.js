@@ -12,6 +12,10 @@ function init(){
 
 }
 
+function draw(){
+    
+}
+
 function update(){
 
 }
