@@ -12,8 +12,8 @@ function init(){
 
 }
 
-function draw(){
-    
+function draw_pazzle(){
+
 }
 
 function update(){
@@ -22,4 +22,5 @@ function update(){
 
 function gameloop(){
     update();
+    draw_pazzle();
 }
