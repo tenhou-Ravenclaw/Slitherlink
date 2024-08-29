@@ -10,6 +10,10 @@ document.addEventListener('DOMContentLoaded', function() {
     var hAudio = document.getElementById('help_audio');
     var sAudio = document.getElementById('start_audio');
 
+    const min = document.getElementById("min");
+    const sec = document.getElementById("sec");
+    let timeRemaining = 5 * 60; // 5分を秒に変換
+
     // 動画の再生終了を検出するイベントリスナー
     video.addEventListener('ended', function() {
         // 画像にアニメーション付きで表示させるクラスを追加
@@ -29,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // フェードアウトが完了してからページ遷移
         setTimeout(function() {
             window.location.href = "game.html";
-        }, 2000); // ロケットアニメーション(1秒)後にページを遷移
+        }, 1500); // ロケットアニメーション(1秒)後にページを遷移
     });
 
     // ヘルプボタンをクリックしたときにポップアップとオーバーレイを表示
@@ -51,4 +55,24 @@ document.addEventListener('DOMContentLoaded', function() {
         popup.style.display = 'none';
         overlay.style.display = 'none';
     });
+
+    function countdown() {
+        let minutes = Math.floor(timeRemaining / 60);
+        let seconds = timeRemaining % 60;
+
+        min.innerHTML = minutes < 10 ? '0' + minutes : minutes;
+        sec.innerHTML = seconds < 10 ? '0' + seconds : seconds;
+
+        timeRemaining--;
+
+        if (timeRemaining < 0) {
+            clearInterval(timer); // タイマーを停止
+            alert("Time's up!");
+            // ここに追加のアクションを記述
+        }
+    }
+
+    const timer = setInterval(countdown, 1000);
+    countdown(); // 初回の表示更新
 });
+
