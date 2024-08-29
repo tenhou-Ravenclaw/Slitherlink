@@ -1,0 +1,32 @@
+body {
+    background-color: #583f9a;
+}
+
+.help_img {
+    float: right;
+    margin-top: 30px;
+    cursor: pointer;
+}
+
+.submit_button {
+    margin-top: 500px;
+    margin-left: 100px;
+}
+
+@media (min-width: 600px) {
+    .main_page{
+        display: flex;
+    }
+
+    .left {
+        margin: 100px;
+        width: 600px;
+        height: 600px;
+        border-radius:20px;/*丸みを調整*/
+        background-color:#ffffff;
+    }
+
+    .right {
+        flex-grow: 1;
+    }
+}
