@@ -1,0 +1,52 @@
+.game_background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* アスペクト比を保ちながら画面を覆う */
+    z-index: -1; /* 他のコンテンツの背後に配置 */
+}
+
+.time-container {
+    margin-top: 260px;
+    margin-left: 750px;
+    display: flex;
+}
+
+.time {
+    margin: .6rem;
+    background-color: rgb(235, 155, 255);
+    border-radius: 1rem;
+    padding: 3rem;
+}
+
+#min,#sec {
+    font-size: 3rem;
+    margin-right: 1rem;
+}
+
+.help_img {
+    float: right;
+    margin-top: 30px;
+    cursor: pointer;
+}
+
+.submit_button {
+    margin-top: 100px;
+    margin-right: 180px;
+    float: right;
+    cursor: pointer;
+}
+
+.main_page {
+    display: flex;
+}
+
+.left {
+    flex-grow: 1;
+}
+
+.right {
+    flex-grow: 1;
+}
