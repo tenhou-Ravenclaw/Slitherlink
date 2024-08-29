@@ -3,8 +3,11 @@ let line = [];
 
 let x0 = 0;
 let y0 = 0;
+let startX0 = 0;
+let startY0 = 0;
 const len = 40;
 let key = 0;
+let judgementSearch = false;
 
 onload = function(){
     canvas = document.getElementById("Slitherlink");
@@ -19,10 +22,10 @@ onload = function(){
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
-  
+
 
 function init(){
-    line = [[0,0,0,0,0,0,0,0,0,0,0,1],
+    line = [[0,0,0,0,0,0,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0,0,0],
@@ -37,11 +40,11 @@ function init(){
             ];
             
 
-    circle_1st();
-    for (let index = 0; index < 2; index++) {        
-        circle(key);
-    }
-    
+
+    do {
+        preCompleteCircle();
+        console.log("ahahahaha")
+    } while (!judgement());
 }
 
 
@@ -49,7 +52,9 @@ function init(){
 function circle_1st(){
     do{
         x0 = getRandomInt(line.length-1);
+        startX0 = x0;
         y0 = getRandomInt(line.length-1);
+        startY0 = y0;
         // console.log(x0);
         // console.log(y0);
     }while ((x0 + y0) % 2 != 1)
@@ -68,6 +73,8 @@ function circle(key) {
                     key+=1;
                 }else{
                     line[x0-1][y0-1]=1;
+                    x0 -= 1;
+                    y0 -= 1;
                     break;
                 }
             case 2: // 右横直線
@@ -75,20 +82,24 @@ function circle(key) {
                     key+=1;
                 }else{
                     line[x0][y0+2]=1;
+                    y0 += 2;
                     break;
                 }
             case 3: // 右斜め下
                 if (x0-2<0) {// はみ出ていたらcase 4へ
-                    key+=1;
+                    key += 1;
                 }else{
                     line[x0+1][y0+1]=1;
+                    x0 += 1;
+                    y0 += 1;
                     break;
                 }
             case 4: // 左横直線
                 if (y0-2<0) {// はみ出ていたらcase 5へ
-                    key+=1;
+                    key += 1;
                 }else{
                     line[x0][y0-2]=1;
+                    y0 -= 2;
                     break;
                 }
             case 5: // 右斜め上
@@ -96,6 +107,8 @@ function circle(key) {
                     key+=1
                 }else{
                     line[x0-1][y0+1]=1;
+                    x0 -= 1;
+                    y0 += 1;
                     break;
                 }
                 case 6: // 左斜め下
@@ -103,6 +116,8 @@ function circle(key) {
                         key = 1;
                     }else{
                         line[x0+1][y0-1]=1;
+                        x0 += 1;
+                        y0 -= 1;
                     break;
                 }
         }
@@ -113,6 +128,8 @@ function circle(key) {
                     key+=1;
                 }else{
                     line[x0-1][y0-1]=1;
+                    x0 -= 1;
+                    y0 -= 1;
                     break;
                 }
             case 2: // 下直線
@@ -120,44 +137,104 @@ function circle(key) {
                     key+=1;
                 }else{
                     line[x0+2][y0]=1;
+                    x0 += 2;
                     break;
                 }
             case 3: // 右斜め下
-                if (line.length-2<y0+2) {// はみ出ていたらcase 4へ
+                if (line.length-2<y0+2||line.length-2<x0+2) {// はみ出ていたらcase 4へ
                     key+=1;
                 }else{
                     line[x0+1][y0+1]=1;
+                    x0 += 1;
+                    y0 += 1;
                     break;
                 }
             case 4: // 上直線
-                if (y0-2<0) {// はみ出ていたらcase 5へ
+                if (x0-2<0) {// はみ出ていたらcase 5へ
                     key+=1;
                 }else{
                     line[x0-2][y0] = 1;
+                    x0 -= 2;
                     break;
                 }
             case 5: // 右斜め上
-                if (line.length-2<y0+2) {// はみ出ていたらcase 6へ
+                if (x0-2<0||line.length-2<y0+2) {// はみ出ていたらcase 6へ
                     key+=1
                 }else{
                     line[x0-1][y0+1]=1;
+                    x0 -= 1;
+                    y0 += 1;
                     break;
                 }
-                case 6: // 左斜め下
-                    if (y0-2<0) {// はみ出ていたらcase 1へ
-                        key = 1;
-                    }else{
-                        line[x0+1][y0-1]=1;
-                    break;
-                }
+            case 6: // 左斜め下
+                if (y0-2<0||line.length-2<x0+2) {// はみ出ていたらcase 1へ
+                    key = 1;
+                }else{
+                    line[x0+1][y0-1]=1;
+                    x0 += 1;
+                    y0 -= 1;
+                break;
+            }
             
         }
     }
 }
 
-// 一本線か判定
-function judgement(){
+// 一応完成？な円描画
+function preCompleteCircle(params) {
+    reset();
+    circle_1st();
+    do {
+        circle(key);
+    } while ((x0 != startX0)&&(y0 != startY0));
+}
 
+// 一本線か判定
+function judgement(judgementSearch){
+    judgementLabel:if (true) {
+        for(let y=0;y<line.length-1;y++){
+            for(let x=0;x<line[y].length-1;x++){
+                if ((x+y)%2==0) {
+                    let count = 0;
+                    if(x < line.length){
+                        if (line[x+1][y]==1) {
+                            count +=1
+                        }
+                    }
+                    if(x>0){
+                        if (line[x-1][y]==1) {
+                            count +=1
+                        }
+                    }
+                    if(y < line.length){
+                        if (line[x][y+1]==1) {
+                            count +=1
+                        }
+                    }
+                    if (y>=0) {    
+                        if (line[x][y-1]==1) {
+                            count +=1
+                        }
+                    }
+                    if(count == 0 || count == 2){ // そのマスの前後左右に線が０または2つあったとき
+                    }else break judgementLabel;
+                }
+            }
+        }
+        judgementSearch = true;
+    }
+    return judgementSearch;
+}
+
+// リセット
+function reset() {
+    for(let y=0;y<line.length-1;y++){
+        for(let x=0;x<line[y].length-1;x++){
+            if ((x+y)%2==1) {                
+                line[x][y] = 0;
+            }
+        }
+    }
 }
 
 //線を描画
