@@ -111,15 +111,15 @@ function circle(key) {
                     y0 += 1;
                     break;
                 }
-                case 6: // 左斜め下
-                    if (x0+2<0) {// はみ出ていたらcase 1へ
-                        key = 1;
-                    }else{
-                        line[x0+1][y0-1]=1;
-                        x0 += 1;
-                        y0 -= 1;
-                    break;
-                }
+            case 6: // 左斜め下
+                if (x0+2<0) {// はみ出ていたらcase 1へ
+                    key = 1;
+                }else{
+                    line[x0+1][y0-1]=1;
+                    x0 += 1;
+                    y0 -= 1;
+                break;
+            }
         }
     }else{ // 縦棒に対しての2本目
         switch (key) {
