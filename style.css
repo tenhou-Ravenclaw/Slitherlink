@@ -1,1 +1,114 @@
-@charset "utf-8";
+/* 動画を画面全体に表示 */
+video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* アスペクト比を保ちながら画面を覆う */
+    z-index: -1; /* 他のコンテンツの背後に配置 */
+}
+
+.help_img {
+    margin-left: auto;
+    margin-top: 30px;
+    cursor: pointer;
+    display: block;
+    opacity: 0; /* 透明にして非表示にする */
+    transition: opacity 1s ease-in-out, transform 1s ease-in-out; /* フェードインと移動のアニメーション */
+    transform: translateY(50px); /* 最初は少し下に配置 */
+}
+
+.start_img {
+    margin-top: 450px;
+    margin-left: 250px;
+    opacity: 0; /* 透明にして非表示にする */
+    transition: opacity 1s ease-in-out, transform 1s ease-in-out; /* フェードインと移動のアニメーション */
+    transform: translateY(50px); /* 最初は少し下に配置 */
+}
+
+.rocket_img {
+    margin-left: 20px;
+    opacity: 0; /* 透明にして非表示にする */
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out; /* フェードインと移動のアニメーション */
+    transform: translateY(50px); /* 最初は少し下に配置 */
+    position: relative; /* ロケットを通常の文脈から引き出す */
+    z-index: 90; /* オーバーレイの上に表示 */
+}
+
+/* アニメーションを適用して表示させるクラス */
+.show {
+    opacity: 1;
+    transform: translateY(0); /* 元の位置に移動 */
+}
+
+/* 既存のスタイルはそのままにして、アニメーションを追加 */
+@keyframes fly-up {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-800px); /* ロケットが上に飛ぶ */
+    }
+}
+
+/* ロケットが飛ぶアニメーションのスタイル */
+.fly {
+    animation: fly-up 1s forwards; /* アニメーションを1秒で完了させる */
+    opacity: 1; /* ロケットを表示させる */
+}
+
+/* オーバーレイのスタイル */
+.overlay {
+    display: none; /* 最初は非表示 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* 半透明の黒 */
+    z-index: 90; /* ポップアップより低いが他の要素より高くする */
+}
+
+/* ロケット以外を暗くするオーバーレイ */
+.darkOverlay {
+    display: none; /* 最初は非表示 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* 背景を暗くする（透明度80%） */
+    z-index: 50; /* ロケットの背後に表示する */
+}
+
+/* ポップアップの基本スタイル */
+.popup {
+    display: none; /* 最初は非表示 */
+    position: fixed;
+    z-index: 100; /* ポップアップを他の要素の上に表示 */
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 400px;
+    padding: 20px;
+    padding-top: 30px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+/* ポップアップ内のコンテンツ */
+.popup-content {
+    text-align: left;
+}
+
+/* 閉じるボタン */
+.close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+}
