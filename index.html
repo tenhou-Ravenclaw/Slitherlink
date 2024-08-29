@@ -4,9 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css" type="text/css">
-    <title>Document</title>
+    <title>LoopCoursePuzzle</title>
 </head>
 <body>
+        <video autoplay muted src="img/start.mp4" type="video/mp4"></video>
+        <div class="help_audio" onclick="audio()">
+            <img class="help_img" id="helpImage" width="100" height="55" src="img/help.png" alt="Help">
+        </div>
+        <div class="start_audio" onclick="audio()">
+            <a href="game.html"><img class="start_img" id="startImage" width="350" height="200" src="img/start.png" alt="Start"></a>
+            <img class="rocket_img" id="rocketGif" width="200" height="300" src="img/rocket.gif" alt="ロケットのgif">
+        </div>
+
+        <audio id="help_audio">
+            <source src="audio/help_button.mp3">
+        </audio>
+
+        <audio id="start_audio">
+            <source src="audio/start_button.mp3">
+        </audio>
+
+        <!-- ポップアップが表示される時に背景を少し暗くする -->
+        <div id="overlay" class="overlay"></div>
+        <!-- ロケットが発射される時に背景を少し暗くする -->
+        <div id="darkOverlay" class="darkOverlay"></div>
+        <!-- ポップアップの内容 -->
+        <div id="popup" class="popup">
+            <div class="popup-content">
+                <span class="close">&times;</span>
+                <p>ループコースパズルは、正方形のグリッド上にループを描くことを目的としたパズルです。
+                    四角形のマス目の中に書かれた数字の数だけ、グリッド上のマスの間に線を引いていきます。
+                    すべての線をつなげて、1つの閉じた輪（ループ）を作り上げます。
+                    <br>制限時間は5分です！
+                </p>
+            </div>
+        </div>
+
     <script src="javascript.js"></script>
 </body>
 </html>
