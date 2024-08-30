@@ -1,5 +1,7 @@
 let canvas,graphic;
 let gridSize,len;
+let grid = [];
+let lineObjects = [];
 
 //ラインクラス
 class Line{
@@ -12,12 +14,21 @@ class Line{
         this.gridX = gridX; //grid配列内でのインデックス
         this.gridY = gridY;
         this.lineWidth = lineWidth;
+        this.color_0 = "black";
+        this.color_1 = "blue";
     }
 
     //描画
-    draw(color){
+    draw(){
         graphic.beginPath();
         graphic.lineWidth = this.lineWidth;
+        let color;
+        if(grid[this.gridY][this.gridX]==0){
+            color = this.color_0;
+        }
+        else{
+            color = this.color_1;
+        }
         graphic.strokeStyle = color;
         graphic.moveTo(this.x1,this.y1);
         graphic.lineTo(this.x2,this.y2);
@@ -32,14 +43,16 @@ class Line{
         }
         let d = Math.pow(center.x - pointer.x, 2) + Math.pow(center.y - pointer.y, 2)
         if(d<=Math.pow(this.len/2, 2)){
+            this.color_0 = "silver";
+            this.color_1 = "SkyBlue";
             return true;
         }
+        this.color_0 = "black";
+        this.color_1 = "blue";
         return false;
     }
 }
 
-let grid = [];
-let lineObjects = [];
 onload = function(){
     canvas = document.getElementById("Slitherlink");
     graphic = canvas.getContext("2d");
@@ -100,13 +113,7 @@ function generate_grid(){
 //格子を描画
 function draw_grid(){
     for(let line of lineObjects){
-        if(grid[line.gridY][line.gridX]==0){
-            color = "black";
-        }
-        else{
-            color = "blue";
-        }
-        line.draw(color);
+        line.draw();
     }
 }
 
@@ -150,6 +157,16 @@ function click(e){
 
 //マウスの座標を取得
 function mousemove(e){
+    const rect = canvas.getBoundingClientRect();
+    const pointer = {
+        x: e.offsetX,
+        y: e.offsetY
+    };
+    for(let line of lineObjects){
+        if(line.hit(pointer)){
+            console.log(pointer.x)
+        }
+    }
 }
 
 function gameloop(){
