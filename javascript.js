@@ -399,29 +399,101 @@ function Generate_Grid(Input){
     return Output;
 }
 
+function Generate_Line(N){
+    const SIZE = N*2+1+4;
+    //二次元配列の宣言
+    let Calc=[], Ans=[];
+    for(let i=0; i<SIZE; i++){
+        Calc[i] = [];
+        Ans[i] = [];
+        for(let j=0; j<SIZE; j++){
+            Calc[i][j] = 1;
+            Ans[i][j] = 0;
+        }
+    }
+    {   //Ans配列の初期化
+        for(let k=0; k<SIZE; k++){//上下左右余白は×
+            Ans[0][k] = -1;
+            Ans[1][k] = -1;
+            Ans[SIZE-1][k] = -1;
+            Ans[SIZE-2][k] = -1;
+            Ans[k][0] = -1;
+            Ans[k][1] = -1;
+            Ans[k][SIZE-1] = -1;
+            Ans[k][SIZE-2] = -1;
+        }
+    }
+    {   //Calc配列の初期化
+        for(let i=0; i<SIZE; i++){
+            for(let j=0; j<SIZE; j++){
+                Calc[i][j] = Ans[i][j]
+            }
+        }
+    }
+    //デバッグ用関数
+    let debug_text = "";
+    const print = function(){//デバッグ用 //id="test"を使用
+        const print_cell = function(color, str){
+            return `<pre style='background-color:${color};display:inline'>${str.toString().padStart(2, ' ')}</pre>`
+        }
+        for(let i=0; i<SIZE; i++){
+            for(let j=0; j<SIZE; j++){//Calc配列の出力
+                if(i<2 || SIZE-3<i || j<2 || SIZE-3<j){             //余白部分
+                    debug_text += print_cell("blue", Calc[i][j]);
+                }else if(i%2==1 && j%2==1){                         //マス目
+                    debug_text += print_cell("yellow", Calc[i][j]);
+                }else if((i%2==0 && j%2==1)||(i%2==1 && j%2==0)){   //線なら
+                    if(Calc[i][j] >= 1){            //○
+                        debug_text += print_cell("gray", Calc[i][j]);
+                    }else if(Calc[i][j] == -1){     //×
+                        debug_text += print_cell("red", Calc[i][j]);
+                    }else{                          //-
+                        debug_text += print_cell("green", Calc[i][j]);
+                    }
+                }else{                                              //空白なら
+                    //周囲に線が存在するなら黒
+                    if(Calc[i-1][j] == 1){debug_text += print_cell("gray", Calc[i][j]);}
+                    else if(Calc[i][j-1] == 1){debug_text += print_cell("gray", Calc[i][j]);}
+                    else if(Calc[i+1][j] == 1){debug_text += print_cell("gray", Calc[i][j]);}
+                    else if(Calc[i][j+1] == 1){debug_text += print_cell("gray", Calc[i][j]);}
+                    else{debug_text += print_cell("white", Calc[i][j]);}
+                }
+            }
+            debug_text += "  ";
+            for(let j=0; j<SIZE; j++){//Ans配列の出力
+                if(i<2 || SIZE-3<i || j<2 || SIZE-3<j){             //余白部分
+                    debug_text += print_cell("blue", Ans[i][j]);
+                }else if(i%2==1 && j%2==1){                         //マス目
+                    debug_text += print_cell("yellow", Ans[i][j]);
+                }else if((i%2==0 && j%2==1)||(i%2==1 && j%2==0)){   //線なら
+                    if(Ans[i][j] == 1){            //○
+                        debug_text += print_cell("black", Ans[i][j]);
+                    }else if(Ans[i][j] == -1){     //×
+                        debug_text += print_cell("red", Ans[i][j]);
+                    }else{                          //-
+                        debug_text += "  ";
+                    }
+                }else{                                              //空白なら
+                    //周囲に線が存在するなら黒
+                    if(Ans[i-1][j] == 1){debug_text += print_cell("black", Ans[i][j]);}
+                    else if(Ans[i][j-1] == 1){debug_text += print_cell("black", Ans[i][j]);}
+                    else if(Ans[i+1][j] == 1){debug_text += print_cell("black", Ans[i][j]);}
+                    else if(Ans[i][j+1] == 1){debug_text += print_cell("black", Ans[i][j]);}
+                    else{debug_text+="  ";}
+                }
+            }
+            debug_text+="<br>"
+        }
+        debug_text+="<br>"
+        const test = document.getElementById("test");
+        test.innerHTML = debug_text;
+    };
+    Calc[2][3]=1;
+    print();
+}
 /*
-    関数Generate_Grid
-完全な状態のマス目から不要部を削除しパズルを出力する
+    関数Generate_Line(Ｎ)
 
-    引数：完全な状態のマス目
-    戻り値；パズルのマス目
-
-    解答判定
-    　パズルのマス目と解答の線の数が対応してる
-    　ひとつの輪になっている
-        この２つで判定できる！と思う！！！！
-
-    HTMLファイル側の＜pre＞について
-    　デバッグで使用、消してOK
-    　Generate関数の１行目　DEGUB定数をfalseに変えてね！
+    引数：マス目の大きさ,ＮｘＮで生成
 */
-const INPUT_GRID = [
-    [2,3,3,2,3,1],
-    [3,0,2,1,3,0],
-    [3,2,3,1,2,1],
-    [3,1,2,1,1,2],
-    [2,3,2,2,0,3],
-    [0,1,0,2,3,2]
-];
-const quiz =  Generate_Grid(INPUT_GRID);
-console.log(quiz);
+Generate_Line(4);
