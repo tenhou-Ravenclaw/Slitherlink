@@ -1,6 +1,7 @@
 let canvas,graphic;
 let gridSize,len;
 
+//ラインクラス
 class Line{
     constructor(x1,y1,x2,y2,len,lineWidth,gridX,gridY){
         this.x1 = x1*len+lineWidth;
@@ -13,6 +14,7 @@ class Line{
         this.lineWidth = lineWidth;
     }
 
+    //描画
     draw(color){
         graphic.beginPath();
         graphic.lineWidth = this.lineWidth;
@@ -22,6 +24,7 @@ class Line{
         graphic.stroke();
     }
 
+    //クリック判定
     hit(pointer){   
         let center = {
             x: (this.x1+this.x2)/2,
@@ -29,7 +32,6 @@ class Line{
         }
         let d = Math.pow(center.x - pointer.x, 2) + Math.pow(center.y - pointer.y, 2)
         if(d<=Math.pow(this.len/2, 2)){
-            console.log(this.gridX,this.gridY)
             return true;
         }
         return false;
@@ -44,7 +46,6 @@ onload = function(){
     //初期化
     init();
     //入力処理
-    // document.onkeydown = keydown;
     document.onclick = click;
     document.onmousemove = mousemove;
     setInterval("gameloop()",16);
@@ -120,12 +121,10 @@ function click(e){
         x: e.clientX - rect.left,
         y: e.clientY - rect.top
     };
-    console.log(pointer)
     for(let line of lineObjects){
         if(line.hit(pointer)){
             if(grid[line.gridY][line.gridX]==1){
                 grid[line.gridY][line.gridX] = 0;
-                console.log("!")
             }
             else{
                 grid[line.gridY][line.gridX] = 1;
