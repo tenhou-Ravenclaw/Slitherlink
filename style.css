@@ -78,7 +78,7 @@ video {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.6); /* 背景を暗くする（透明度80%） */
+    background-color: rgba(0, 0, 0, 0.6); /* 背景を暗くする（透明度60%） */
     z-index: 50; /* ロケットの背後に表示する */
 }
 

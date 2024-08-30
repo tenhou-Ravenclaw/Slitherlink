@@ -22,12 +22,52 @@
                 <p class="time"><span id="sec">00</span> seconds</p>
             </div>
 
-            <div class="submit">
-                <img class="submit_button" width="300" height="170" src="img/submit.png">
+            <div class="submit" onclick="audio()">
+                <img class="submit_button" id="submitImage" width="300" height="170" src="img/submit.png">
             </div>
 
         </div>
+
+        <!-- ヘルプボタンのサウンド -->
+        <audio id="help_audio">
+            <source src="audio/help_button.mp3">
+        </audio>
+
+        <!-- ヘルプボタンのサウンド -->
+        <audio id="submit">
+            <source src="audio/submit_button.mp3">
+        </audio>
+
+        <!-- オーバーレイ -->
+        <div id="overlay" class="overlay"></div>
+
+        <!-- ヘルプのポップアップの内容 -->
+        <div id="popup" class="helpPopup">
+            <div class="helpPopup-content">
+                <span class="close">&times;</span>
+                <p>ループコースパズルは、正方形のグリッド上にループを描くことを目的としたパズルです。
+                    四角形のマス目の中に書かれた数字の数だけ、グリッド上のマスの間に線を引いていきます。
+                    すべての線をつなげて、1つの閉じた輪（ループ）を作り上げます。
+                    <br>制限時間は5分です！
+                </p>
+            </div>
+        </div>
+
+        <!-- タイムアウトのポップアップの内容 -->
+        <div id="timeUpPopup" class="popup">
+            <div class="timeOut_audio" onclick="audio()">
+                <h2>Time's Up!</h2>
+                <button id="backHomePopup">Back Home</button>
+                <button id="tryAgainPopup">Try Again</button>
+            </div>
+        </div>
+
+        <!-- タイムアウト時のポップアップのサウンド -->
+        <audio id="timeOut_audio">
+            <source src="audio/choose_button.mp3" type="audio/mp3">
+        </audio>
+
     </div>
-    <script src="javascript.js"></script>
+    <script src="game.js"></script>
 </body>
 </html>
