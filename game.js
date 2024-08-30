@@ -1,3 +1,4 @@
+//ゲームのプレイ画面のサウンドや動作を記述している
 document.addEventListener('DOMContentLoaded', function() {
     const min = document.getElementById("min");
     const sec = document.getElementById("sec");
