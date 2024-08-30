@@ -110,6 +110,21 @@ function draw_grid(){
     }
 }
 
+function draw_point(){
+    for(let line of lineObjects){
+        graphic.strokeStyle = "black";
+        graphic.fillStyle = "white"
+        graphic.lineWidth = 5;
+        let r = 3;
+
+        graphic.beginPath();
+        graphic.arc(line.x1, line.y1, r, 0, 2 * Math.PI);
+        graphic.arc(line.x2, line.y2, r, 0, 2 * Math.PI);
+        graphic.closePath();
+        graphic.fill();
+    }
+}
+
 function update(){
 
 }
@@ -140,4 +155,5 @@ function mousemove(e){
 function gameloop(){
     update();
     draw_grid();
+    draw_point();
 }
