@@ -43,12 +43,8 @@ class Line{
         }
         let d = Math.pow(center.x - pointer.x, 2) + Math.pow(center.y - pointer.y, 2)
         if(d<=Math.pow(this.len/2, 2)){
-            this.color_0 = "silver";
-            this.color_1 = "SkyBlue";
             return true;
         }
-        this.color_0 = "black";
-        this.color_1 = "blue";
         return false;
     }
 }
@@ -66,15 +62,15 @@ onload = function(){
 
 function init(){
     grid = [[0,1,0,1,0,1,0,1,0,1,0],
-            [1,0,1,0,1,0,1,0,1,0,1],
+            [1,5,1,3,1,3,1,3,1,3,1],
             [0,1,0,1,0,1,0,1,0,1,0],
-            [1,0,0,0,0,0,0,0,0,0,0],
+            [1,2,0,2,0,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0],
+            [0,3,0,0,0,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0,0],
             ];
     gridSize = 5;
@@ -132,8 +128,26 @@ function draw_point(){
     }
 }
 
+function draw_number(){
+    for(let y=0;y<grid.length;y++){
+        for(let x=0;x<grid[y].length;x++){
+            if(x%2==1&&y%2==1&&grid[y][x]>0){
+                graphic.fillStyle = "black"
+                graphic.font = "48px serif";
+                graphic.fillText(grid[y][x], x*len-8, (y+1/2)*len+5);
+            }
+        }
+    }  
+}
+
 function update(){
 
+}
+
+function draw(){
+    draw_grid();
+    draw_point();
+    draw_number();
 }
 
 //クリック処理
@@ -164,13 +178,17 @@ function mousemove(e){
     };
     for(let line of lineObjects){
         if(line.hit(pointer)){
-            console.log(pointer.x)
+            line.color_0 = "silver";
+            line.color_1 = "SkyBlue";
+        }
+        else{
+            line.color_0 = "black";
+            line.color_1 = "blue";
         }
     }
 }
 
 function gameloop(){
     update();
-    draw_grid();
-    draw_point();
+    draw();
 }
