@@ -395,11 +395,12 @@ function Generate_Grid(Input){
             if(Output[i][j] == -1)cnt++;
         }
     }
-    console.log(cnt);
+    if(DEDGUB)console.log(`消した数：${cnt}`);
     return Output;
 }
 
-function Generate_Line(N){
+function Generate_Circle(N){
+    const DEGUB = false;
     const SIZE = N*2+1+4;
     //二次元配列の宣言
     let Calc=[], Ans=[];
@@ -433,6 +434,7 @@ function Generate_Line(N){
     //デバッグ用関数
     let debug_text = "";
     const print = function(){//デバッグ用 //id="test"を使用
+        if(!DEGUB)return;
         const print_cell = function(color, str){
             return `<pre style='background-color:${color};display:inline'>${str.toString().padStart(2, ' ')}</pre>`
         }
@@ -488,12 +490,108 @@ function Generate_Line(N){
         const test = document.getElementById("test");
         test.innerHTML = debug_text;
     };
-    Calc[2][3]=1;
+    //計算用関数
+    const Set_Wall = function(center, line_j){
+        for(let i=2; i<SIZE-2; i++){
+            for(let j=2; j<SIZE-2; j++){
+                if(j != center)Calc[i][j] = 0;
+            }
+        }
+        for(let i=2; i<SIZE-2; i++){
+            Calc[i][line_j] = -1;
+        }
+    }
+    const Generate_Line = function(s_i, s_j, g_i, g_j){
+        let n_i=s_i, n_j=s_j;
+        do{
+            let Way = [];
+            if(Calc[n_i][n_j-2] == 0)Way.push(2);
+            if(Calc[n_i+2][n_j] == 0)Way.push(3);
+            if(Calc[n_i][n_j+2] == 0)Way.push(4);
+            if(DEGUB)console.log(`${n_i}:${n_j}`);
+            if(Way.length == 0)return false;
+            let key = Way[Math.floor(Math.random() * Way.length)];
+            if(DEGUB)console.log(key);
+            Calc[n_i][n_j] = 1;
+            switch(key){
+                case 2:
+                    Calc[n_i][n_j-1] = 1;
+                    n_j -= 2;
+                    break;
+                case 3:
+                    Calc[n_i+1][n_j] = 1;
+                    n_i += 2;
+                    break;
+                case 4:
+                    Calc[n_i][n_j+1] = 1;
+                    n_j += 2;
+                    break;
+            }
+            //print();
+        }while(n_i != g_i);
+        if(n_j<g_j){
+            for (n_j ; n_j < g_j; n_j++) {
+                Calc[n_i][n_j]=1;
+            }
+        }else{
+            for (n_j ; n_j > g_j; n_j--) {
+                Calc[n_i][n_j]=1;
+            }
+        }
+        return true
+    }
+    const Save = function(){
+        for(let i=2; i<SIZE-2; i++){
+            for(let j=(i+1)%2+2; j<SIZE-2; j+=2){
+                if(Calc[i][j] == 1)Ans[i][j] = Calc[i][j];
+            }
+        }
+    }
+    const Center = Math.floor(SIZE/4)*2;
+    Set_Wall(Center, Center+2);
+    Generate_Line(2, Center, SIZE-3, Center);
+    Save(Center);
+    do{
+        print();
+        Set_Wall(Center, Center-2);
+    }while(!Generate_Line(2, Center, SIZE-3, Center));
+    Save(Center);
     print();
+    let Output=[];
+    for(let i=0; i<N*2+1; i++){
+        Output[i] = [];
+        for(let j=0; j<N*2+1; j++){
+            Output[i][j] = Ans[i+2][j+2];
+        }
+    }
+    return Output;
 }
 /*
     関数Generate_Line(Ｎ)
 
     引数：マス目の大きさ,ＮｘＮで生成
+    戻り値：Ｎ＊２＋１ ｘ Ｎ＊２＋１　の線とマス目の混合配列
 */
-Generate_Line(4);
+//console.log(Generate_Circle(5));
+
+const N = 4;
+let Circle = Generate_Circle(N);
+for(let i=1; i<Circle.length-1; i+=2){
+    for(let j=1; j<Circle.length-1; j+=2){
+        let cnt=0;
+        if(Circle[i-1][j] == 1)cnt++;
+        if(Circle[i][j-1] == 1)cnt++;
+        if(Circle[i+1][j] == 1)cnt++;
+        if(Circle[i][j+1] == 1)cnt++;
+        Circle[i][j] = cnt;
+    }
+}
+let Input_Grid = [];
+for(let i=0; i<N; i++){
+    Input_Grid[i] = [];
+    for(let j=0; j<N; j++){
+        Input_Grid[i][j] = Circle[i*2+1][j*2+1];
+    }
+}
+let Quiz = Generate_Grid(Input_Grid);
+console.log(Quiz);
