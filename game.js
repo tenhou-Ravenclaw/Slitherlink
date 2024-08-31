@@ -155,8 +155,8 @@ function draw(){
 function click(e){
     const rect = canvas.getBoundingClientRect();
     const pointer = {
-        x: e.offsetX - rect.left,
-        y: e.offsetY - rect.top
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top
     };
     for(let line of lineObjects){
         if(line.hit(pointer)){
@@ -174,8 +174,8 @@ function click(e){
 function mousemove(e){
     const rect = canvas.getBoundingClientRect();
     const pointer = {
-        x: e.offsetX,// - rect.left,
-        y: e.offsetY// - rect.top
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top
     };
     console.log(e.offsetX);
     for(let line of lineObjects){
@@ -362,4 +362,5 @@ document.addEventListener('DOMContentLoaded', function() {
         draw();
     }, 100);
     //setInterval(gameloop(),16)//１６は何の数字;
+    //16は16msに一度実行，つまり一秒間に約60回実行する（60fps）
 });

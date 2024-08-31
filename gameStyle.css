@@ -60,14 +60,12 @@
     z-index: 60;
 } */
 #Slitherlink {
-    margin-top: 130px;
-    margin-left: 40px;
-    margin-right: 60px;
-    width: 70vh;
-    float: right;
+    background: #ffffff;
+    position: absolute;
+    top: 50%;
+    left: 28.3%;
     cursor: pointer;
-    z-index: 60;
-    position: relative;
+    transform: translate(-50%, -50%);
 }
 
 .main_page {
