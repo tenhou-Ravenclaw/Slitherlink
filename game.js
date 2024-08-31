@@ -113,7 +113,7 @@ function draw_point(){
 
         graphic.beginPath();
         graphic.arc(line.x1, line.y1, r, 0, 2 * Math.PI);
-        // graphic.arc(line.x2, line.y2, r, 0, 2 * Math.PI);
+        graphic.arc(line.x2, line.y2, r, 0, 2 * Math.PI);
         graphic.closePath();
         graphic.fill();
     }
