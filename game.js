@@ -1,4 +1,3 @@
-//ゲームのプレイ画面のサウンドや動作を記述している
 document.addEventListener('DOMContentLoaded', function() {
     const min = document.getElementById("min");
     const sec = document.getElementById("sec");
@@ -10,9 +9,15 @@ document.addEventListener('DOMContentLoaded', function() {
     var sAudio = document.getElementById('submit');
     var timeUpPopup = document.getElementById("timeUpPopup");
     var overlay = document.getElementById("overlay");
-    var backHomePopupButton = document.getElementById("backHomePopup");
-    var tryAgainPopupButton = document.getElementById("tryAgainPopup");
+    var timeUpBackHomePopupButton = document.getElementById("timeUpBackHomePopup");
+    var timeUpTryAgainPopupButton = document.getElementById("timeUpTryAgainPopup");
     var submitButton = document.getElementById("submitImage");
+    var correctPopup = document.getElementById("correctPopup");
+    var incorrectPopup = document.getElementById("incorrectPopup");
+    var correctBackHomePopupButton = document.getElementById("correctBackHomePopup");
+    var correctTryAgainPopupButton = document.getElementById("correctTryAgainPopup");
+    var incorrectBackHomePopupButton = document.getElementById("incorrectBackHomePopup");
+    var incorrectTryAgainPopupButton = document.getElementById("incorrectTryAgainPopup");
 
     function countdown() {
         let minutes = Math.floor(timeRemaining / 60);
@@ -53,7 +58,17 @@ document.addEventListener('DOMContentLoaded', function() {
         timeUpPopup.style.display = 'block';
     }
 
-    backHomePopupButton.addEventListener('click', function() {
+    function showCorrectPopup() {
+        overlay.style.display = 'block';
+        correctPopup.style.display = 'block';
+    }
+
+    function showIncorrectPopup() {
+        overlay.style.display = 'block';
+        incorrectPopup.style.display = 'block';
+    }
+
+    timeUpBackHomePopupButton.addEventListener('click', function() {
         tAudio.currentTime = 0; // 連続クリックに対応
         tAudio.play(); // クリックしたら音を再生
 
@@ -64,7 +79,51 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 500);// 再生の後に遷移させる
     });
 
-    tryAgainPopupButton.addEventListener('click', function() {
+    timeUpTryAgainPopupButton.addEventListener('click', function() {
+        tAudio.currentTime = 0; // 連続クリックに対応
+        tAudio.play(); // クリックしたら音を再生
+
+        setTimeout(function() {
+            overlay.style.display = 'none';
+            timeUpPopup.style.display = 'none';
+            window.location.href = "game.html";
+        }, 500);// 再生の後に遷移させる
+    });
+
+    correctBackHomePopupButton.addEventListener('click', function() {
+        tAudio.currentTime = 0; // 連続クリックに対応
+        tAudio.play(); // クリックしたら音を再生
+
+        setTimeout(function() {
+            overlay.style.display = 'none';
+            timeUpPopup.style.display = 'none';
+            window.location.href = "index.html";
+        }, 500);// 再生の後に遷移させる
+    });
+
+    correctTryAgainPopupButton.addEventListener('click', function() {
+        tAudio.currentTime = 0; // 連続クリックに対応
+        tAudio.play(); // クリックしたら音を再生
+
+        setTimeout(function() {
+            overlay.style.display = 'none';
+            timeUpPopup.style.display = 'none';
+            window.location.href = "game.html";
+        }, 500);// 再生の後に遷移させる
+    });
+
+    incorrectBackHomePopupButton.addEventListener('click', function() {
+        tAudio.currentTime = 0; // 連続クリックに対応
+        tAudio.play(); // クリックしたら音を再生
+
+        setTimeout(function() {
+            overlay.style.display = 'none';
+            timeUpPopup.style.display = 'none';
+            window.location.href = "index.html";
+        }, 500);// 再生の後に遷移させる
+    });
+
+    incorrectTryAgainPopupButton.addEventListener('click', function() {
         tAudio.currentTime = 0; // 連続クリックに対応
         tAudio.play(); // クリックしたら音を再生
 
@@ -84,6 +143,11 @@ document.addEventListener('DOMContentLoaded', function() {
         正誤判定が出た後ポップアップを表示して、ホームに戻るボタンともう一回チャレンジするボタンを作ろうと思います
         タイムアウト時に表示されるポップアップと同じかんじで実装します
         */
+
+        //とりあえずsubmitボタンを押すとそれぞれcorrect, incorrectのポップアップを表示させています
+        showCorrectPopup();
+        //showIncorrectPopup();
+
     });
 
     const timer = setInterval(countdown, 1000);

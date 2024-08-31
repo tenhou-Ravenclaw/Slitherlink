@@ -33,10 +33,38 @@
             <source src="audio/help_button.mp3">
         </audio>
 
-        <!-- ヘルプボタンのサウンド -->
+        <!-- サブミットボタンのサウンド -->
         <audio id="submit">
             <source src="audio/submit_button.mp3">
         </audio>
+
+        <!-- submit押して正解だった時のポップアップの内容 -->
+        <div id="correctPopup" class="correctPopup">
+            <div class="submit" onclick="audio()">
+                <div class="submit-content">
+                    <img width="200" height="110" src="img/correct.png">
+                    <h1>Correct!</h1>
+                </div>
+                <div class="button-content">
+                    <button id="correctBackHomePopup">Back Home</button>
+                    <button id="correctTryAgainPopup">Try Again</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- submit押して不正解だった時のポップアップの内容 -->
+        <div id="incorrectPopup" class="incorrectPopup">
+            <div class="submit" onclick="audio()">
+                <div class="submit-content">
+                    <img width="200" height="110" src="img/incorrect.png">
+                    <h1>Incorrect...</h1>
+                </div>
+                <div class="button-content">
+                    <button id="incorrectBackHomePopup">Back Home</button>
+                    <button id="incorrectTryAgainPopup">Try Again</button>
+                </div>
+            </div>
+        </div>
 
         <!-- オーバーレイ -->
         <div id="overlay" class="overlay"></div>
@@ -57,8 +85,8 @@
         <div id="timeUpPopup" class="popup">
             <div class="timeOut_audio" onclick="audio()">
                 <h2>Time's Up!</h2>
-                <button id="backHomePopup">Back Home</button>
-                <button id="tryAgainPopup">Try Again</button>
+                <button id="timeUpBackHomePopup">Back Home</button>
+                <button id="timeUpTryAgainPopup">Try Again</button>
             </div>
         </div>
 
