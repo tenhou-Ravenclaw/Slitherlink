@@ -69,11 +69,9 @@ onload = function(){
 }
 
 function init(){
-    gridSize = 4;
-    console.log(canvas.width);
-    len = 50;
+    gridSize = 8;
+    len = 200 / gridSize;
     const puzzle = Generate(gridSize);
-    console.log(puzzle);
     for(let i=0; i<gridSize*2+1; i++){
         grid[i] = [];
         for(let j=0; j<gridSize*2+1; j++){
