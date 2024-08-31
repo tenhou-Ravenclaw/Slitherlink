@@ -132,7 +132,7 @@ function draw_number(){
                 }
                 graphic.fillStyle = color;
                 graphic.font = `${font_size}px serif`;
-                graphic.fillText(grid[y][x], x*len-7, (y+1/2)*len+5);
+                graphic.fillText(grid[y][x], x*len-7, (y+1/2)*len-5);
             }
         }
     }  
