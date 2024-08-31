@@ -55,7 +55,7 @@ class Line{
 
 function init(){
     console.log(canvas.width)
-    len = (canvas.width/2-5) / gridSize;
+    len = 200 / gridSize;// (canvas.width/2-5) / gridSize;
     const puzzle = Generate(gridSize);
     for(let i=0; i<gridSize*2+1; i++){
         grid[i] = [];
@@ -139,10 +139,7 @@ function draw_number(){
 }
 
 function update(){
-    if( (errorNum = Check_Ans(grid)) == true){
-        /*パズルが完成した時の処理 */
-        console.log("クリアー");
-    }
+    errorNum = Check_Ans(grid)
 }
 
 function draw(){
@@ -155,8 +152,8 @@ function draw(){
 function click(e){
     const rect = canvas.getBoundingClientRect();
     const pointer = {
-        x: e.offsetX - rect.left,
-        y: e.offsetY - rect.top
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top
     };
     for(let line of lineObjects){
         if(line.hit(pointer)){
@@ -174,10 +171,10 @@ function click(e){
 function mousemove(e){
     const rect = canvas.getBoundingClientRect();
     const pointer = {
-        x: e.offsetX,// - rect.left,
-        y: e.offsetY// - rect.top
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top
     };
-    console.log(e.offsetX);
+    console.log(pointer.x);
     for(let line of lineObjects){
         if(line.hit(pointer)){
             line.color_0 = "silver";
