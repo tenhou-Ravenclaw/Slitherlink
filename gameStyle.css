@@ -51,6 +51,23 @@
     z-index: 60;
     position: relative;
 }
+/* #Slitherlink {
+    position: fixed;
+    top: 15%;
+    left: 7.5%;
+    width: 75vh;
+    height: 75vh;
+    z-index: 60;
+} */
+#Slitherlink {
+    margin-top: 175px;
+    margin-left: 50px;
+    width: 70vh;
+    float: right;
+    cursor: pointer;
+    z-index: 60;
+    position: relative;
+}
 
 .main_page {
     display: flex;
@@ -58,6 +75,7 @@
 
 .left {
     flex-grow: 1;
+    z-index: 60;
 }
 
 .right {
