@@ -1,7 +1,11 @@
+import { Generate } from "./generate.js";
+import { Check_Ans } from "./check.js";
+
 let canvas,graphic;
 let gridSize,len;
 let grid = [];
 let lineObjects = [];
+let errorNum = [];
 
 //ラインクラス
 class Line{
@@ -57,24 +61,26 @@ onload = function(){
     //入力処理
     document.onclick = click;
     document.onmousemove = mousemove;
-    setInterval("gameloop()",16);
+    this.setInterval(()=>{
+        update();
+        draw();
+    }, 100);
+    //setInterval(gameloop(),16)//１６は何の数字;
 }
 
 function init(){
-    grid = [[0,1,0,1,0,1,0,1,0,1,0],
-            [1,5,1,3,1,3,1,3,1,3,1],
-            [0,1,0,1,0,1,0,1,0,1,0],
-            [1,2,0,2,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0],
-            [0,3,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0],
-            ];
-    gridSize = 5;
-    len = 40;
+    gridSize = 4;
+    console.log(canvas.width);
+    len = 50;
+    const puzzle = Generate(gridSize);
+    console.log(puzzle);
+    for(let i=0; i<gridSize*2+1; i++){
+        grid[i] = [];
+        for(let j=0; j<gridSize*2+1; j++){
+            grid[i][j] = 0;
+            if(i%2==1 && j%2==1)grid[i][j] = puzzle[(i-1)/2][(j-1)/2];
+        }
+    }
     generate_grid();
 }
 
@@ -131,8 +137,13 @@ function draw_point(){
 function draw_number(){
     for(let y=0;y<grid.length;y++){
         for(let x=0;x<grid[y].length;x++){
-            if(x%2==1&&y%2==1&&grid[y][x]>0){
-                graphic.fillStyle = "black"
+            if(x%2==1&&y%2==1&&grid[y][x]>-1){
+                let color = "silver"
+                for(let k=0; k<errorNum.length; k++){
+                    if(x == errorNum[k][1] && y == errorNum[k][0])
+                        color = "black";
+                }
+                graphic.fillStyle = color;
                 graphic.font = "48px serif";
                 graphic.fillText(grid[y][x], x*len-8, (y+1/2)*len+5);
             }
@@ -141,7 +152,10 @@ function draw_number(){
 }
 
 function update(){
-
+    if( (errorNum = Check_Ans(grid)) == true){
+        /*パズルが完成した時の処理 */
+        console.log("クリアー");
+    }
 }
 
 function draw(){
@@ -186,9 +200,4 @@ function mousemove(e){
             line.color_1 = "blue";
         }
     }
-}
-
-function gameloop(){
-    update();
-    draw();
 }
