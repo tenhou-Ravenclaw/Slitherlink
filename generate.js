@@ -115,6 +115,12 @@ function Generate(N){
         const Calc_3 = function(){  //連続した３から計算
             for(let i=1; i<SIZE-3; i+=2){
                 for(let j=1; j<SIZE-3; j+=2){
+                    if(Calc[i][j] == 0){    //０の周囲は×
+                        if(Calc[i-1][j]==0)Calc[i-1][j]=-1;
+                        if(Calc[i][j-1]==0)Calc[i][j-1]=-1;
+                        if(Calc[i+1][j]==0)Calc[i+1][j]=-1;
+                        if(Calc[i][j+1]==0)Calc[i][j+1]=-1;
+                    }
                     if(Calc[i][j] == 3){
                         if(Calc[i][j+2] == 3){//横に連続
                             Calc[i][j-1]=1;
@@ -250,13 +256,6 @@ function Generate(N){
             let action=false;
             for(let i=1; i<SIZE-1; i+=2){
                 for(let j=1; j<SIZE-1; j+=2){
-                    if(Calc[i][j] == 0){    //０の周囲は×
-                        if(Calc[i-1][j]==0)Calc[i-1][j]=-1;
-                        if(Calc[i][j-1]==0)Calc[i][j-1]=-1;
-                        if(Calc[i+1][j]==0)Calc[i+1][j]=-1;
-                        if(Calc[i][j+1]==0)Calc[i][j+1]=-1;
-                        action=true;
-                    }
                     let cnt_maru=0,cnt_batu=0;
                     {   //周囲の線の○を取得
                         if(Calc[i-1][j] == 1)cnt_maru++;
@@ -286,6 +285,7 @@ function Generate(N){
                     }
                 }
             }
+            return action;
         }
         const Calc_Line = function(){   //線情報の判断
             let cnt=0;

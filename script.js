@@ -69,7 +69,7 @@ onload = function(){
 }
 
 function init(){
-    gridSize = 8;
+    gridSize = 3;
     len = 200 / gridSize;
     const puzzle = Generate(gridSize);
     for(let i=0; i<gridSize*2+1; i++){
@@ -84,15 +84,17 @@ function init(){
 
 //格子を配置
 function generate_grid(){
+    let line_width = 5;
+    //if(gridSize > 6)line_width = 2;
     for(let y=0;y<grid.length;y++){
         for(let x=0;x<grid[y].length;x++){
             if(y%2==0&&(x+y)%2==1){
                 if(grid[y][x]==1){
-                    let line = new Line((x-1),y,(x+1),y,len,5,x,y);
+                    let line = new Line((x-1),y,(x+1),y,len,line_width,x,y);
                     lineObjects.push(line);
                 }
                 else{
-                    let line = new Line((x-1),y,(x+1),y,len,5,x,y);
+                    let line = new Line((x-1),y,(x+1),y,len,line_width,x,y);
                     lineObjects.push(line);
                 }
             }
@@ -126,13 +128,15 @@ function draw_point(){
 
         graphic.beginPath();
         graphic.arc(line.x1, line.y1, r, 0, 2 * Math.PI);
-        graphic.arc(line.x2, line.y2, r, 0, 2 * Math.PI);
+        // graphic.arc(line.x2, line.y2, r, 0, 2 * Math.PI);
         graphic.closePath();
         graphic.fill();
     }
 }
 
 function draw_number(){
+    let font_size = 48;
+    if(gridSize > 6)font_size = 28;
     for(let y=0;y<grid.length;y++){
         for(let x=0;x<grid[y].length;x++){
             if(x%2==1&&y%2==1&&grid[y][x]>-1){
@@ -142,8 +146,8 @@ function draw_number(){
                         color = "black";
                 }
                 graphic.fillStyle = color;
-                graphic.font = "48px serif";
-                graphic.fillText(grid[y][x], x*len-8, (y+1/2)*len+5);
+                graphic.font = `${font_size}px serif`;
+                graphic.fillText(grid[y][x], x*len-7, (y+1/2)*len+5);
             }
         }
     }  

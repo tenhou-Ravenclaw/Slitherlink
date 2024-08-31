@@ -80,10 +80,9 @@ function Check_Ans(Input){
         if(Calc[s_i][s_j] == 1)break;
     }
     s_j-=1;               //空白マスに移動
-    let Way = 4;  //右の選択肢
-    let n_i=s_i, n_j=s_j;
-    for(let k=0; k<cnt; k++){
-        console.log(`${n_i}:${n_j}`);
+    let Way = 2;  //右の選択肢
+    let n_i=s_i, n_j=s_j+2;
+    for(let k=0; k<cnt-1; k++){
         if(Calc[n_i-1][n_j]==1 && Way!=1){n_i-=2; Way=3;}
         else if(Calc[n_i][n_j-1]==1 && Way!=2){n_j-=2; Way=4;}
         else if(Calc[n_i+1][n_j]==1 && Way!=3){n_i+=2; Way=1;}
