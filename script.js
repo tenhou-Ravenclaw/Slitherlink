@@ -56,6 +56,10 @@ class Line{
 onload = function(){
     canvas = document.getElementById("Slitherlink");
     graphic = canvas.getContext("2d");
+
+    //ここで入力するサイズを受け取る --------------
+    gridSize = 4;
+
     //初期化
     init();
     //入力処理
@@ -69,7 +73,6 @@ onload = function(){
 }
 
 function init(){
-    gridSize = 3;
     len = 200 / gridSize;
     const puzzle = Generate(gridSize);
     for(let i=0; i<gridSize*2+1; i++){
