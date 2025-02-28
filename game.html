@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="gameStyle.css" type="text/css">
+    <title>LoopCoursePuzzle</title>
+</head>
+<body>
+    <img class="game_background" id="game_background" src="img/game.png">
+    <div class="main_page">
+        <div class="left">
+            <canvas id = "Slitherlink" width="510" height="510"></canvas>
+        </div>
+        <div class="right">
+            <div class="help_audio" onclick="audio()">
+                <img class="help_img" id="helpImage" width="100" height="55" src="img/help.png" alt="Help">
+            </div>
+
+            <div class="time-container">
+                <p class="time"><span id="min">05</span> minutes</p>
+                <p class="time"><span id="sec">00</span> seconds</p>
+            </div>
+
+            <div class="submit" onclick="audio()">
+                <img class="submit_button" id="submitImage" width="300" height="170" src="img/submit.png">
+            </div>
+
+        </div>
+
+        <!-- ヘルプボタンのサウンド -->
+        <audio id="help_audio">
+            <source src="audio/help_button.mp3">
+        </audio>
+
+        <!-- サブミットボタンのサウンド -->
+        <audio id="submit">
+            <source src="audio/submit_button.mp3">
+        </audio>
+
+        <!-- submit押して正解だった時のポップアップの内容 -->
+        <div id="correctPopup" class="correctPopup">
+            <div class="submit" onclick="audio()">
+                <div class="submit-content">
+                    <img width="200" height="110" src="img/correct.gif">
+                    <h1>Correct!</h1>
+                </div>
+                <div class="button-content">
+                    <button id="correctBackHomePopup">Back Home</button>
+                    <button id="correctTryAgainPopup">Try Again</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- submit押して不正解だった時のポップアップの内容 -->
+        <div id="incorrectPopup" class="incorrectPopup">
+            <div class="submit" onclick="audio()">
+                <div class="submit-content">
+                    <img width="200" height="110" src="img/incorrect.gif">
+                    <h1>Incorrect...</h1>
+                </div>
+                <div class="button-content">
+                    <button id="incorrectBackHomePopup">Back Home</button>
+                    <button id="incorrectTryAgainPopup">Try Again</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- オーバーレイ -->
+        <div id="overlay" class="overlay"></div>
+
+        <!-- ヘルプのポップアップの内容 -->
+        <div id="popup" class="helpPopup">
+            <div class="helpPopup-content">
+                <span class="close">&times;</span>
+                <p>ループコースパズルは、正方形のグリッド上にループを描くことを目的としたパズルです。
+                    四角形のマス目の中に書かれた数字の数だけ、グリッド上のマスの間に線を引いていきます。
+                    すべての線をつなげて、1つの閉じた輪（ループ）を作り上げます。
+                    <br>制限時間は5分です！
+                </p>
+            </div>
+        </div>
+
+        <!-- タイムアウトのポップアップの内容 -->
+        <div id="timeUpPopup" class="popup">
+            <div class="timeOut_audio" onclick="audio()">
+                <h2>Time's Up!</h2>
+                <button id="timeUpBackHomePopup">Back Home</button>
+                <button id="timeUpTryAgainPopup">Try Again</button>
+            </div>
+        </div>
+
+        <!-- タイムアウト時のポップアップのサウンド -->
+        <audio id="timeOut_audio">
+            <source src="audio/choose_button.mp3" type="audio/mp3">
+        </audio>
+
+    </div>
+    <script src="game.js" type="module"></script>
+</body>
+</html>
